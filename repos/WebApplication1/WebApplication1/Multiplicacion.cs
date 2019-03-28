@@ -7,6 +7,6 @@ namespace CalculadoraClient
     class Multiplicacion
     {
         public List<double> valores = new List<double>();
-        double resultado;
+        public  double resultado;
     }
 }

@@ -8,6 +8,8 @@ namespace CalculadoraClient
     {
         public double dividendo;
         public double divisor;
+        public double cociente;
+        public double resto;
     }
 }
 

@@ -7,5 +7,6 @@ namespace CalculadoraClient
     class Raiz
     {
         public double num;
+        public double resultado;
     }
 }

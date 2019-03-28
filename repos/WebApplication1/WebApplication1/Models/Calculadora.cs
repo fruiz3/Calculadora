@@ -1,5 +1,4 @@
-﻿using CalculadoraClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +7,9 @@ namespace WebApplication1.Models
 {
     public class Calculadora
     {
-        public static Object suma(double[] numeros)
+
+        // Suma los números pasados como parámetro
+        public static double suma(double[] numeros)
         {
             double resultado = numeros[0];
 
@@ -16,25 +17,18 @@ namespace WebApplication1.Models
             {
                 resultado += numeros[i];
             }
-
-            Suma sum = new Suma();
-            sum.resultado = resultado;
-
-            return sum;
+            return resultado;
         }
 
-        public static object resta(double minuendo, double sustraendo)
+        // Resta dos números pasado como parámetro
+        public static double resta(double minuendo, double sustraendo)
         {
             double resultado = 0;
-
-            resultado = minuendo - sustraendo;
-
-            Resta rest = new Resta();
-            rest.resultado = resultado;
-            return rest;
+            resultado = minuendo - sustraendo;      
+            return resultado;
         }
 
-
+        // Multiplica todos los números pasados como parámetro
         public static double multiplicacion(double[] numeros)
         {
             double resultado = numeros[0];
@@ -46,22 +40,29 @@ namespace WebApplication1.Models
             return resultado;
         }
 
-
+        // Divide dos números pasados como parámetro
         public static double division(double dividendo, double divisor)
         {
 
             double resultado;
-            double resto;
 
             resultado = dividendo / divisor;
-            resto = dividendo % divisor;
             
-
-
             return resultado;
         }
 
-        
+        // Calcula el resto de la división de los dos números pasados como parámetro
+        public static double resto (double dividendo, double divisor)
+        {
+
+            double resto;
+
+            resto = dividendo % divisor;
+
+            return resto;
+        }
+
+
         public static double raiz (double num)
         {
             double resultado = 0;

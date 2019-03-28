@@ -18,10 +18,14 @@ namespace WebApplication1.Controllers
     {
         double[] nums;
 
+
+        // URL por defecto
         public string Index(string nombre)
         {
             return HtmlEncoder.Default.Encode($"Bienvenido a la Calculadora {nombre}");
         }
+
+        // URL https://localhost:44361/Calculadora/sumar
 
         public String Sumar(double[] numeros)
         {
@@ -30,24 +34,29 @@ namespace WebApplication1.Controllers
             Suma desSum = new Suma();
 
 
-
+            // Recibe el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
             {
                 var result = streamReader.ReadToEnd();
                 desSum = JsonConvert.DeserializeObject<Suma>(result);
             }
-            
-           
-                nums = desSum.valores.ToArray();
-            
 
-            if (desSum.valores.Count < 2)
-            {
-                return "Debes Introducir mínimo dos  números" ;
-            } else
-            {
-                return "El resultado es " + Calculadora.suma(nums);
-            }
+
+         
+            nums = desSum.valores.ToArray();
+
+            desSum.resultado = Calculadora.suma(nums);
+
+            // Añado nuevas propiedades al objeto y lo devuelvo
+
+            Response.Clear();
+            Response.ContentType = "application/json; charset=utf-8";
+            var json2 = JsonConvert.SerializeObject(desSum);
+            Response.WriteAsync(json2);
+
+
+            return "";
+
         }
 
 
@@ -59,6 +68,7 @@ namespace WebApplication1.Controllers
             Resta desRest = new Resta();
 
 
+            // Recibe el objeto en formato JSON
 
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
             {
@@ -69,7 +79,17 @@ namespace WebApplication1.Controllers
             minuendo = desRest.minuendo;
             sustraendo = desRest.sustraendo;
 
-                return "El resultado es " + Calculadora.resta(minuendo, sustraendo);
+            desRest.resultado = Calculadora.resta(minuendo, sustraendo);
+
+            // Añado nuevas propiedades al objeto, lo serializo y lo envío
+
+            Response.Clear();
+            Response.ContentType = "application/json; charset=utf-8";
+            var json2 = JsonConvert.SerializeObject(desRest);
+            Response.WriteAsync(json2);
+
+            return "";
+
             
         }
 
@@ -80,7 +100,7 @@ namespace WebApplication1.Controllers
             Multiplicacion desMult = new Multiplicacion();
 
 
-
+            // Recibo el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
             {
                 var result = streamReader.ReadToEnd();
@@ -89,16 +109,17 @@ namespace WebApplication1.Controllers
 
 
             nums = desMult.valores.ToArray();
+            
+           desMult.resultado = Calculadora.multiplicacion(nums);
 
+            // Añado nuevas propiedades al objeto, lo serializo y lo envío
 
-            if (desMult.valores.Count < 2)
-            {
-                return "Debes Introducir mínimo dos  números";
-            }
-            else
-            {
-                return "El resultado es " + Calculadora.multiplicacion(nums);
-            }
+            Response.Clear();
+            Response.ContentType = "application/json; charset=utf-8";
+            var json2 = JsonConvert.SerializeObject(desMult);
+            Response.WriteAsync(json2);
+
+            return "";
         }
 
         public String Dividir(double[] numeros)
@@ -109,7 +130,7 @@ namespace WebApplication1.Controllers
             Division desDiv = new Division();
 
 
-
+            // Recibo el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
             {
                 var result = streamReader.ReadToEnd();
@@ -119,8 +140,18 @@ namespace WebApplication1.Controllers
             dividendo = Convert.ToDouble(desDiv.dividendo);
             divisor = Convert.ToDouble(desDiv.divisor);
 
-                return "El resultado es " + Calculadora.division(dividendo, divisor);
-            }
+            desDiv.cociente = Calculadora.division(dividendo, divisor);
+            desDiv.resto = Calculadora.resto(dividendo, divisor);
+
+            // Añado nuevas propiedades al objeto, lo serializo y lo envío
+
+            Response.Clear();
+            Response.ContentType = "application/json; charset=utf-8";
+            var json2 = JsonConvert.SerializeObject(desDiv);
+            Response.WriteAsync(json2);
+
+            return "";
+        }
         
 
 
@@ -131,7 +162,7 @@ namespace WebApplication1.Controllers
             Raiz desRaz = new Raiz();
 
 
-
+            // Recibo el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
             {
                 var result = streamReader.ReadToEnd();
@@ -141,8 +172,18 @@ namespace WebApplication1.Controllers
             
             num = Convert.ToDouble(desRaz.num);
 
-            return "El resultado es " + Calculadora.raiz(num);
-            
+            desRaz.resultado = Calculadora.raiz(num);
+
+
+            // Añado nuevas propiedades al objeto, lo serializo y lo envío
+
+            Response.Clear();
+            Response.ContentType = "application/json; charset=utf-8";
+            var json2 = JsonConvert.SerializeObject(desRaz);
+            Response.WriteAsync(json2);
+
+            return "";
+
         }
 
 

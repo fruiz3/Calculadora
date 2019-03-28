@@ -14,30 +14,15 @@ namespace ConsoleApp2
 {
     class Calculadora
     {
+        // Creo objeto vacío para luego meter el json desserializado
+        object obj1 = new object();
 
 
-        /*     private static void PostJson(string uri, List<double> arr)
-              {
-                  Console.WriteLine("PostJson");
-                  string postData = JsonConvert.SerializeObject(arr);
-                  byte[] bytes = Encoding.UTF8.GetBytes(postData);
-                  var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
-                  httpWebRequest.Method = "POST";
-                  httpWebRequest.ContentLength = bytes.Length;
-                  httpWebRequest.ContentType = "text/xml";
-                  using (Stream requestStream = httpWebRequest.GetRequestStream())
-                  {
-                      requestStream.Write(bytes, 0, bytes.Count());
-                  }
-                  var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                  if (httpWebResponse.StatusCode != HttpStatusCode.OK)
-                  {
-                      string message = String.Format("POST failed. Received HTTP {0}", httpWebResponse.StatusCode);
-                      throw new ApplicationException(message);
-                  }
-              }*/
-
-
+        /** Serializa un JSON y lo envía la dirección del parámetro
+         * @params 
+         * uri -> URL a la que se va a enviar el parámetro
+         * obj -> Objeto que se va a enviar
+        */
         static void sendJson(string uri, Object obj)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
@@ -54,27 +39,23 @@ namespace ConsoleApp2
                 streamWriter.Flush();
                 streamWriter.Close();
             }
-
+            
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                Console.WriteLine(result);
+                obj = JsonConvert.DeserializeObject<Suma>(result);
+
+                // Falta mostrar solo resultado en vez objeto entero
+                Console.WriteLine("El resultado es: " + obj.resultado);
             }
 
         }
 
 
 
-        static void leerJson()
-        {
 
-        }
-      
-        
-
-
-static void Main(string[] args)
+        static void Main(string[] args)
         {
             String linea = "";
             String linea2 = "";
@@ -86,10 +67,13 @@ static void Main(string[] args)
             int aux = 0;
 
             object obj = new object();
-
+        
             List<double> numeros = new List<double>();
+
             string urlAddress = "";
             double valor;
+
+            // Menú de opciones para que el usuario elija la acción
             do
             {
                 Console.Clear();
@@ -106,6 +90,7 @@ static void Main(string[] args)
 
                 linea = Console.ReadLine();
 
+                // Opcion 1, suma todos los números que el usuario elija, hasta que escriba "salir"
                 if (linea.Equals("1")) {
                     
                     Console.WriteLine("Has Escogido la suma de números, \n escriba \"salir\" para no meter más numeros");
@@ -133,6 +118,7 @@ static void Main(string[] args)
 
                 }
 
+                // Opcion 2, resta dos números introducidos por el usuario
                 else if (linea.Equals("2"))
                 {
                     Console.WriteLine("Escribe los números que quieres restar");
@@ -146,18 +132,28 @@ static void Main(string[] args)
 
                         if (double.TryParse(linea2, out valor))
                         {
-                            resta.valores.Add(valor);
+                            if (aux == 0)
+                            {
+                                resta.minuendo = valor;
+                            }
+                            else
+                            {
+                                resta.sustraendo = valor;
+                            }
                         }
                         else
                         {
                             Console.WriteLine("Introduce valores numéricos");
                         }
-                       
-                    } while (!linea2.Equals("salir"));
+
+                        aux++;
+                    } while (aux < 2);
 
                     obj = resta;
 
                 }
+
+                // Opcion 3, multiplica todos los números que el usuario introduzca, hasta que escriba "salir"
                 else if (linea.Equals("3"))
                 {
                     Console.WriteLine("Escribe los números que quieres multiplicar");
@@ -185,6 +181,8 @@ static void Main(string[] args)
                     obj = mult;
 
                 }
+
+                // Opcion 4, divide dos números introducidos por el usuario
                 else if (linea.Equals("4"))
                 {
                     Console.WriteLine("Escribe los números que quieres dividir");
@@ -216,6 +214,8 @@ static void Main(string[] args)
 
                     obj = div;
                 }
+
+                // Opcion 5, calcula la raíz del número introducido por el usuario
                 else if (linea.Equals("5"))
                 {
                     Console.WriteLine("Has Escogido la raíz cuadrada");
@@ -240,10 +240,9 @@ static void Main(string[] args)
             } while(!linea.Equals("0"));
 
 
-            //var json = JsonConvert.SerializeObject(numeros);
+      
 
-            // PostJson(urlAddress, numeros);
-
+            // LLamada a la función para enviar el objeto como JSON
             sendJson(urlAddress, obj);
 
             Console.ReadKey();
