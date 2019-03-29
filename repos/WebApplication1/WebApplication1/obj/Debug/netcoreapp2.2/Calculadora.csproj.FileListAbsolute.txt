@@ -5,7 +5,6 @@ C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\bin\Debug\netcor
 C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\Calculadora.pdb
 C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\Calculadora.Views.dll
 C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\bin\Debug\netcoreapp2.2\Calculadora.Views.pdb
-C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Calculadora.csprojAssemblyReference.cache
 C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Calculadora.csproj.CoreCompileInputs.cache
 C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Calculadora.RazorAssemblyInfo.cache
 C:\Users\Francisco\source\repos\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.2\Calculadora.RazorAssemblyInfo.cs

@@ -1,3 +1,9 @@
+C:\Users\Francisco\Desktop\Calculadora\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.csprojAssemblyReference.cache
+C:\Users\Francisco\Desktop\Calculadora\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.csproj.CoreCompileInputs.cache
+C:\Users\Francisco\Desktop\Calculadora\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.AssemblyInfoInputs.cache
+C:\Users\Francisco\Desktop\Calculadora\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.AssemblyInfo.cs
+C:\Users\Francisco\Desktop\Calculadora\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.dll
+C:\Users\Francisco\Desktop\Calculadora\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.pdb
 C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.csproj.CoreCompileInputs.cache
 C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.AssemblyInfoInputs.cache
 C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\CalculadoraClient.AssemblyInfo.cs

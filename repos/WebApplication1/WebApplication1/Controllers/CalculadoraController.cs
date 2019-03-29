@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using CalculadoraClient;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebApplication1.Models;
-
-
 namespace WebApplication1.Controllers
+
 {
     public class CalculadoraController : Controller
     {
         double[] nums;
+        Random random = new Random();
+        int id = 0;
+        string accion = "";
+        // TODO añadir funciónes en calculadora para dejar más limpio el código, 
 
+        Operacion op = new Operacion();
 
         // URL por defecto
         public string Index(string nombre)
@@ -33,6 +34,8 @@ namespace WebApplication1.Controllers
             double[] nums = { 0 };
             Suma desSum = new Suma();
 
+            Random random = new Random();
+            id = random.Next(0, 9999);
 
             // Recibe el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
@@ -42,10 +45,36 @@ namespace WebApplication1.Controllers
             }
 
 
-         
+            
             nums = desSum.valores.ToArray();
 
-            desSum.resultado = Calculadora.suma(nums);
+            desSum.resultado = WebApplication1.Models.Calculadora.suma(nums);
+
+            // Creo un objeto operacion y almaceno sus datos
+
+            op.Tipo = "Sum";
+
+            for(int i = 0; i < nums.Length; i++)
+            {
+                if(i == 0)
+                {
+                    
+                    op.Calculo += nums[i];
+                } else
+                {
+                    op.Calculo += " + " + nums[i];
+                } 
+            }
+
+            op.Calculo +=  " = " + desSum.resultado;
+
+            DateTime fecha = DateTime.Now;
+
+            op.Fecha = Convert.ToString(fecha);
+
+            // Convierto el objeto a JSON y lo añado la operación al listado general
+
+            JournalList.Listado.Add(id, JsonConvert.SerializeObject(op));
 
             // Añado nuevas propiedades al objeto y lo devuelvo
 
@@ -66,7 +95,8 @@ namespace WebApplication1.Controllers
             double minuendo = 0;
             double sustraendo = 0;
             Resta desRest = new Resta();
-
+            Random random = new Random();
+            id = random.Next(0, 100);
 
             // Recibe el objeto en formato JSON
 
@@ -79,7 +109,27 @@ namespace WebApplication1.Controllers
             minuendo = desRest.minuendo;
             sustraendo = desRest.sustraendo;
 
-            desRest.resultado = Calculadora.resta(minuendo, sustraendo);
+            desRest.resultado = WebApplication1.Models.Calculadora.resta(minuendo, sustraendo);
+
+
+
+            // Creo un objeto operacion y almaceno sus datos
+            op.Tipo = "Rest";
+
+            op.Calculo +=  desRest.minuendo + " - " + desRest.sustraendo + " = " + desRest.resultado;
+                
+        
+
+        
+
+            DateTime fecha = DateTime.Now;
+
+            op.Fecha = Convert.ToString(fecha);
+
+            // Convierto el objeto a JSON y lo añado la operación al listado general
+
+            JournalList.Listado.Add(JournalList.id, JsonConvert.SerializeObject(op));
+
 
             // Añado nuevas propiedades al objeto, lo serializo y lo envío
 
@@ -99,6 +149,8 @@ namespace WebApplication1.Controllers
             double[] nums = { 0 };
             Multiplicacion desMult = new Multiplicacion();
 
+            Random random = new Random();
+            id = random.Next(0, 100);
 
             // Recibo el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
@@ -110,7 +162,38 @@ namespace WebApplication1.Controllers
 
             nums = desMult.valores.ToArray();
             
-           desMult.resultado = Calculadora.multiplicacion(nums);
+           desMult.resultado = WebApplication1.Models.Calculadora.multiplicacion(nums);
+
+
+
+            // Creo un objeto operacion y almaceno sus datos
+            op.Tipo = "Mul";
+
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i == 0)
+                {
+                    op.Calculo += " * " + nums[i];
+                }
+                else
+                {
+                    op.Calculo += nums[i];
+                }
+            }
+
+            op.Calculo += " = " + desMult.resultado;
+
+
+
+            DateTime fecha = DateTime.Now;
+
+            op.Fecha = Convert.ToString(fecha);
+
+            // Convierto el objeto a JSON y lo añado la operación al listado general
+
+            JournalList.Listado.Add(id, JsonConvert.SerializeObject(op));
+
 
             // Añado nuevas propiedades al objeto, lo serializo y lo envío
 
@@ -122,13 +205,16 @@ namespace WebApplication1.Controllers
             return "";
         }
 
+
+
         public String Dividir(double[] numeros)
         {
             string json = "";
             double dividendo;
             double divisor;
             Division desDiv = new Division();
-
+            Random random = new Random();
+            id = random.Next(0, 100);
 
             // Recibo el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
@@ -140,8 +226,26 @@ namespace WebApplication1.Controllers
             dividendo = Convert.ToDouble(desDiv.dividendo);
             divisor = Convert.ToDouble(desDiv.divisor);
 
-            desDiv.cociente = Calculadora.division(dividendo, divisor);
-            desDiv.resto = Calculadora.resto(dividendo, divisor);
+            desDiv.cociente = WebApplication1.Models.Calculadora.division(dividendo, divisor);
+            desDiv.resto = WebApplication1.Models.Calculadora.resto(dividendo, divisor);
+
+
+
+            // Creo un objeto operacion y almaceno sus datos
+            op.Tipo = "Div";
+
+            op.Calculo += desDiv.dividendo + " / " + desDiv.divisor + " = Cociente: " + desDiv.cociente + ", Resto: " + desDiv.resto;
+
+
+
+            DateTime fecha = DateTime.Now;
+
+            op.Fecha = Convert.ToString(fecha);
+
+            // Convierto el objeto a JSON y lo añado la operación al listado general
+
+            JournalList.Listado.Add(id, JsonConvert.SerializeObject(op));
+            id++;
 
             // Añado nuevas propiedades al objeto, lo serializo y lo envío
 
@@ -160,7 +264,8 @@ namespace WebApplication1.Controllers
             string json = "";
             double num = 0;
             Raiz desRaz = new Raiz();
-
+            Random random = new Random();
+            id = random.Next(0, 100);
 
             // Recibo el objeto en formato JSON
             using (var streamReader = new StreamReader(HttpContext.Request.Body))
@@ -172,8 +277,22 @@ namespace WebApplication1.Controllers
             
             num = Convert.ToDouble(desRaz.num);
 
-            desRaz.resultado = Calculadora.raiz(num);
+            desRaz.resultado = WebApplication1.Models.Calculadora.raiz(num);
 
+
+
+            // Creo un objeto operacion y almaceno sus datos
+            op.Tipo = "Raiz";
+
+            op.Calculo += "√" + desRaz.num + " = " + desRaz.resultado;
+
+            DateTime fecha = DateTime.Now;
+
+            op.Fecha = Convert.ToString(fecha);
+
+            // Convierto el objeto a JSON y lo añado la operación al listado general
+
+            JournalList.Listado.Add(id, JsonConvert.SerializeObject(op));
 
             // Añado nuevas propiedades al objeto, lo serializo y lo envío
 
@@ -185,7 +304,5 @@ namespace WebApplication1.Controllers
             return "";
 
         }
-
-
     }
 }

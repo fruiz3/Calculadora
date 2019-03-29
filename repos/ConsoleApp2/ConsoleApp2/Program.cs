@@ -14,6 +14,7 @@ namespace ConsoleApp2
 {
     class Calculadora
     {
+
         // Creo objeto vacío para luego meter el json desserializado
         object obj1 = new object();
 
@@ -28,6 +29,7 @@ namespace ConsoleApp2
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
+            object obj2 = new object();
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
@@ -44,10 +46,10 @@ namespace ConsoleApp2
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                obj = JsonConvert.DeserializeObject<Suma>(result);
+                obj2 = JsonConvert.DeserializeObject(result);
 
                 // Falta mostrar solo resultado en vez objeto entero
-                Console.WriteLine("El resultado es: " + obj.resultado);
+                Console.WriteLine("El resultado es: " + obj2);
             }
 
         }
@@ -65,6 +67,8 @@ namespace ConsoleApp2
             Division div = new Division();
             Raiz raiz = new Raiz();
             int aux = 0;
+            int valor2 = 0;
+
 
             object obj = new object();
         
@@ -85,6 +89,8 @@ namespace ConsoleApp2
                 Console.WriteLine("3: Multiplicar Numeros");
                 Console.WriteLine("4: Dividir Numeros");
                 Console.WriteLine("5: Raiz Cuadrada de un número");
+                Console.WriteLine("6: Consultar Journal Con ID");
+
                 Console.WriteLine("0: Salir");
                 Console.WriteLine("¿Qué desea hacer?\n");
 
@@ -113,7 +119,7 @@ namespace ConsoleApp2
 
                     } while (!linea2.Equals("salir"));
 
-
+                    Console.WriteLine("objeto" + suma);
                     obj = suma;
 
                 }
@@ -180,6 +186,7 @@ namespace ConsoleApp2
 
                     obj = mult;
 
+
                 }
 
                 // Opcion 4, divide dos números introducidos por el usuario
@@ -235,7 +242,28 @@ namespace ConsoleApp2
                     obj = raiz;
                 }
 
-                
+
+                else if (linea.Equals("6"))
+                {
+                    Console.Write("Escriba el ID: ");
+                    Journal peticion = new Journal();
+
+                    urlAddress = "https://localhost:44361/Journal/query";
+                    Console.WriteLine("Introduce el número para calcular su raiz");
+
+                    linea2 = Console.ReadLine();
+
+                    if (int.TryParse(linea2, out valor2))
+                    {
+                         peticion.id= valor2;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Has introducido un caracter que no es un número");
+                    }
+
+                    obj = raiz;
+                }
 
             } while(!linea.Equals("0"));
 
