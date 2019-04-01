@@ -1,0 +1,2 @@
+2019-04-01 11:33:10.5688|INFO|WebApplication1.Controllers.CalculadoraController|Operación de suma
+2019-04-01 11:33:22.7446|INFO|WebApplication1.Controllers.CalculadoraController|Operación de Resta
