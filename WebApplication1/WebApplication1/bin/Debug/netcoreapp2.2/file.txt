@@ -1,3 +1,0 @@
-2019-04-01 11:19:25.9437|INFO|WebApplication1.Program|Hello World
-2019-04-01 11:23:00.2893|INFO|WebApplication1.Controllers.CalculadoraController|Operación de suma
-2019-04-01 11:23:16.4911|INFO|WebApplication1.Controllers.CalculadoraController|Operación de suma
