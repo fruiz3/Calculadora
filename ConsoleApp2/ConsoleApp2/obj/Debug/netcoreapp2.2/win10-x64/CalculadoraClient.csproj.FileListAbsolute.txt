@@ -1,0 +1,14 @@
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\hostpolicy.dll
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\hostfxr.dll
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.exe
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.deps.json
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.runtimeconfig.json
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.runtimeconfig.dev.json
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.dll
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\bin\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.pdb
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.csprojAssemblyReference.cache
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.csproj.CoreCompileInputs.cache
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.AssemblyInfoInputs.cache
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.AssemblyInfo.cs
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.dll
+C:\Users\Francisco\source\repos\ConsoleApp2\ConsoleApp2\obj\Debug\netcoreapp2.2\win10-x64\CalculadoraClient.pdb
