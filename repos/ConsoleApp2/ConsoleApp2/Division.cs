@@ -6,8 +6,8 @@ namespace CalculadoraClient
 {
     class Division
     {
-        public double dividendo;
-        public double divisor;
+        public string dividendo;
+        public string divisor;
         public double cociente;
         public double resto;
     }

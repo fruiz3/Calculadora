@@ -92,11 +92,21 @@ namespace WebApplication1
                    new { controller = "Calculadora", action = "Raiz" }
                    );
 
+
+                routes.MapRoute(
+                    "Journal",
+                    "Journal/query",
+                    new { controller = "Journal", action = "query" }
+                    );
+
+
                 routes.MapRoute(
                     "NotFound",
                     "{*catchall}",
                     new { controller = "Error", action = "NotFoundRequest" }
                     );
+
+                
             }); 
         }
     }

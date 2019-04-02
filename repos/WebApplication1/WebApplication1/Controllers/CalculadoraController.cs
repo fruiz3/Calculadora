@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 using CalculadoraClient;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +20,6 @@ namespace WebApplication1.Controllers
         string accion = "";
 
 
-        // TODO añadir funciónes en calculadora para dejar más limpio el código, 
 
         Operacion op = new Operacion();
        
@@ -29,6 +29,8 @@ namespace WebApplication1.Controllers
             return HtmlEncoder.Default.Encode($"Bienvenido a la Calculadora {nombre}");
         }
 
+
+
         // URL https://localhost:44361/Calculadora/sumar
         public String Sumar(double[] numeros)
         {
@@ -36,7 +38,7 @@ namespace WebApplication1.Controllers
             var logger = NLog.LogManager.GetCurrentClassLogger();
 
             string json = "";
-            double[] nums = { 0 };
+          //  double[] nums = { 0 };
             Suma desSum = new Suma();
 
             Random random = new Random();
@@ -49,7 +51,15 @@ namespace WebApplication1.Controllers
                 try
                 {
                     desSum = JsonConvert.DeserializeObject<Suma>(result);
-                    nums = desSum.valores.ToArray();
+
+                    double[] nums = new double[desSum.valores.ToArray().Length];
+
+                    for (int i = 0; i < desSum.valores.ToArray().Length; i++)
+                    {
+                        nums[i] = Double.Parse(desSum.valores[i]);
+                    }
+
+
 
                     desSum.resultado = WebApplication1.Models.Calculadora.suma(nums);
 
@@ -123,8 +133,8 @@ namespace WebApplication1.Controllers
                 try
                 {
                     desRest = JsonConvert.DeserializeObject<Resta>(result);
-                    minuendo = desRest.minuendo;
-                    sustraendo = desRest.sustraendo;
+                    minuendo = Double.Parse(desRest.minuendo);
+                    sustraendo = Double.Parse(desRest.sustraendo);
 
                     desRest.resultado = WebApplication1.Models.Calculadora.resta(minuendo, sustraendo);
 
@@ -174,7 +184,6 @@ namespace WebApplication1.Controllers
             // Creo objeto Nlog y escribo la operación en el registro la operación.
             var logger = NLog.LogManager.GetCurrentClassLogger();
             string json = "";
-            double[] nums = { 0 };
             Multiplicacion desMult = new Multiplicacion();
 
             Random random = new Random();
@@ -189,10 +198,14 @@ namespace WebApplication1.Controllers
                     logger.Info("Operación de multiplicación");
                     desMult = JsonConvert.DeserializeObject<Multiplicacion>(result);
 
-                    nums = desMult.valores.ToArray();
+                    double[] nums = new double[desMult.valores.ToArray().Length];
+
+                    for (int i = 0; i < desMult.valores.ToArray().Length; i++)
+                    {
+                        nums[i] = Double.Parse(desMult.valores[i]);
+                    }
 
                     desMult.resultado = WebApplication1.Models.Calculadora.multiplicacion(nums);
-
 
 
                     // Creo un objeto operacion y almaceno sus datos
@@ -263,8 +276,9 @@ namespace WebApplication1.Controllers
                 {
                     desDiv = JsonConvert.DeserializeObject<Division>(result);
 
-                    dividendo = Convert.ToDouble(desDiv.dividendo);
-                    divisor = Convert.ToDouble(desDiv.divisor);
+                    dividendo = Double.Parse(desDiv.dividendo);
+                    divisor = Double.Parse(desDiv.divisor);
+
 
                     desDiv.cociente = WebApplication1.Models.Calculadora.division(dividendo, divisor);
                     desDiv.resto = WebApplication1.Models.Calculadora.resto(dividendo, divisor);

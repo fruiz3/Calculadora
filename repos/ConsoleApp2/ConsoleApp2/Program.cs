@@ -79,7 +79,6 @@ namespace ConsoleApp2
 
             object obj = new object();
         
-            List<double> numeros = new List<double>();
 
             string urlAddress = "";
             double valor;
@@ -118,15 +117,13 @@ namespace ConsoleApp2
                     do
                     {
                         linea2 = Console.ReadLine();
-
-                        if (double.TryParse(linea2, out valor))
+                        if(!linea2.Equals("salir"))
                         {
-                            suma.valores.Add(valor);
+                            suma.valores.Add(linea2);
                         }
-                        else
-                        {
-                            Console.WriteLine("Introduce valores numéricos");
-                        }
+                            
+                        
+                   
 
                     } while (!linea2.Equals("salir"));
 
@@ -147,21 +144,14 @@ namespace ConsoleApp2
                     {
                         linea2 = Console.ReadLine();
 
-                        if (double.TryParse(linea2, out valor))
+                        if(aux == 0)
                         {
-                            if (aux == 0)
-                            {
-                                resta.minuendo = valor;
-                            }
-                            else
-                            {
-                                resta.sustraendo = valor;
-                            }
-                        }
-                        else
+                            resta.minuendo = linea2;
+                        } else
                         {
-                            Console.WriteLine("Introduce valores numéricos");
+                            resta.sustraendo = linea2;
                         }
+                                                   
 
                         aux++;
                     } while (aux < 2);
@@ -174,22 +164,20 @@ namespace ConsoleApp2
                 else if (linea.Equals("3"))
                 {
                     Console.WriteLine("Escribe los números que quieres multiplicar");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/multiplicar";
+                    urlAddress = "https://localhost:44361/Calculadora/multiplicar";
 
 
                     // El usuario introduce datos hasta que escriba "salir", si mete valores no numéricos, no se guardan.
                     do
                     {
                         linea2 = Console.ReadLine();
+                        if (!linea2.Equals("salir"))
+                        {
+                            mult.valores.Add(linea2);
+                        }
 
-                        if (double.TryParse(linea2, out valor))
-                        {
-                            mult.valores.Add(valor);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Introduce valores numéricos");
-                        }
+
+
 
                     } while (!linea2.Equals("salir"));
 
@@ -204,28 +192,22 @@ namespace ConsoleApp2
                 else if (linea.Equals("4"))
                 {
                     Console.WriteLine("Escribe los números que quieres dividir");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/dividir";
+                    urlAddress = "https://localhost:44361/Calculadora/dividir";
 
                     // El usuario introduce dos números para dividirlos, si mete valores no numéricos, no se guardan.
                     do
                     {
                         linea2 = Console.ReadLine();
 
-                        if (double.TryParse(linea2, out valor))
-                        {
                             if (aux == 0)
                             {
-                                div.dividendo = valor;
+                                div.dividendo = linea2;
                             }
                             else
                             {
-                                div.divisor = valor;
+                                div.divisor = linea2;
                             }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Introduce valores numéricos");
-                        }
+                        
 
                         aux++;
                     } while (aux < 2);
@@ -238,21 +220,13 @@ namespace ConsoleApp2
                 else if (linea.Equals("5"))
                 {
                     Console.WriteLine("Has Escogido la raíz cuadrada");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/raiz";
+                    urlAddress = "https://localhost:44361/Calculadora/raiz";
                     Console.WriteLine("Introduce el número para calcular su raiz");
 
                     linea2 = Console.ReadLine();
-
-                    // El usuario introduce un número para calcular su raíz, si mete valores no numéricos, no se guardan.
-                    if (double.TryParse(linea2, out valor))
-                    {
-                        raiz.num = valor;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Has introducido un caracter que no es un número");
-                    }
-
+                 
+                    raiz.num = linea2;
+             
                     obj = raiz;
                 }
 
@@ -263,8 +237,8 @@ namespace ConsoleApp2
                     Console.Write("Escriba el ID: ");
                     Journal peticion = new Journal();
 
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Journal/query";
-                    Console.WriteLine("Introduce el número para calcular su raiz");
+                    urlAddress = "https://localhost:44361/Journal/query";
+                    Console.WriteLine("Introduce un ID para ver el Journal correspondiente");
 
                     linea2 = Console.ReadLine();
 
@@ -277,7 +251,7 @@ namespace ConsoleApp2
                         Console.WriteLine("Has introducido un caracter que no es un número");
                     }
 
-                    obj = raiz;
+                    obj = peticion;
                 }
 
                 // Cosultar registro.

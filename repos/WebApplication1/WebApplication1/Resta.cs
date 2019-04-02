@@ -6,8 +6,8 @@ namespace CalculadoraClient
 {
     class Resta
     {
-        public double minuendo;
-        public double sustraendo;
+        public string minuendo;
+        public string sustraendo;
         public double resultado;
 
     }

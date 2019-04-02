@@ -6,7 +6,7 @@ namespace CalculadoraClient
 {
     class Multiplicacion
     {
-        public List<double> valores = new List<double>();
+        public List<String> valores = new List<String>();
         public double resultado;
     }
 }

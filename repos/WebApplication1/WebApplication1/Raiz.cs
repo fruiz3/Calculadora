@@ -6,7 +6,7 @@ namespace CalculadoraClient
 {
     class Raiz
     {
-        public double num;
+        public string num;
         public double resultado;
     }
 }
