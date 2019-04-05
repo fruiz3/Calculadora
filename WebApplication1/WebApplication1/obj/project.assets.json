@@ -13085,11 +13085,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Francisco\\source\\repos\\WebApplication1\\WebApplication1\\Calculadora.csproj",
+      "projectUniqueName": "C:\\Users\\Francisco\\Desktop\\Calculadora\\WebApplication1\\WebApplication1\\Calculadora.csproj",
       "projectName": "Calculadora",
-      "projectPath": "C:\\Users\\Francisco\\source\\repos\\WebApplication1\\WebApplication1\\Calculadora.csproj",
+      "projectPath": "C:\\Users\\Francisco\\Desktop\\Calculadora\\WebApplication1\\WebApplication1\\Calculadora.csproj",
       "packagesPath": "C:\\Users\\Francisco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Francisco\\source\\repos\\WebApplication1\\WebApplication1\\obj\\",
+      "outputPath": "C:\\Users\\Francisco\\Desktop\\Calculadora\\WebApplication1\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
