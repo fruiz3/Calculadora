@@ -1,14 +1,14 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "d7c7fdcc640edbc53fd917b80b15f14f11f317b1"
+    "signature": "a3900d8e43b153b0ab53b96842a33e0bdfb3c132"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.2": {
       "CalculadoraClient/1.0.0": {
         "dependencies": {
-          "NLog": "4.6.0",
+          "NLog": "4.6.2",
           "Newtonsoft.Json": "12.0.1"
         },
         "runtime": {
@@ -23,11 +23,11 @@
           }
         }
       },
-      "NLog/4.6.0": {
+      "NLog/4.6.2": {
         "runtime": {
           "lib/netstandard2.0/NLog.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.6.0.9261"
+            "fileVersion": "4.6.2.9511"
           }
         }
       }
@@ -46,12 +46,12 @@
       "path": "newtonsoft.json/12.0.1",
       "hashPath": "newtonsoft.json.12.0.1.nupkg.sha512"
     },
-    "NLog/4.6.0": {
+    "NLog/4.6.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XjDtXR8ciIvpkT4Fd0rFRDpBCm/I35eWHw7hSymECboKQS+7KM9SPcJGXXF+IqfImPqKj8gI76SKIZR7dX0Nyw==",
-      "path": "nlog/4.6.0",
-      "hashPath": "nlog.4.6.0.nupkg.sha512"
+      "sha512": "sha512-HWgFhL87DCGtklqOf0LHDLItl/hQLxpQSV/PTzLm6UXrJr4dfUcDhQmzM5tFIxU38u0Jake06kspXQqTA80lKA==",
+      "path": "nlog/4.6.2",
+      "hashPath": "nlog.4.6.2.nupkg.sha512"
     }
   }
 }

@@ -41,18 +41,18 @@ namespace ConsoleApp2
                 streamWriter.Flush();
                 streamWriter.Close();
             }
-            
+
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
 
-           
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    obj2 = JsonConvert.DeserializeObject(result);
 
-                    // Falta mostrar solo resultado en vez objeto entero
-                    Console.WriteLine("El resultado es: " + obj2);
-                }
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                obj2 = JsonConvert.DeserializeObject(result);
+
+                // Falta mostrar solo resultado en vez objeto entero
+                Console.WriteLine("El resultado es: " + obj2);
+            }
 
 
             //Obtener el código de estado de petición HTTP.
@@ -60,238 +60,248 @@ namespace ConsoleApp2
 
         }
 
+        public static void mostrarMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Bienvenido a la Calculadora\n");
 
+
+            Console.WriteLine("1: Sumar Numeros");
+            Console.WriteLine("2: Restar Numeros");
+            Console.WriteLine("3: Multiplicar Numeros");
+            Console.WriteLine("4: Dividir Numeros");
+            Console.WriteLine("5: Raiz Cuadrada de un número");
+            Console.WriteLine("6: Consultar Journal Con ID");
+            Console.WriteLine("7: Consultar registro");
+
+
+            Console.WriteLine("0: Salir");
+            Console.WriteLine("¿Qué desea hacer?\n");
+        }
+
+        public static void opcion()
+        {
+            string opt = Console.ReadLine();
+            switch (opt)
+            {
+                case "1":
+                    sumar();
+                    break;
+
+                case "2":
+                    restar();
+                    break;
+
+                case "3":
+                    multiplicar();
+                    break;
+
+                case "4":
+                    dividir();
+                    break;
+
+                case "5":
+                    raiz();
+                    break;
+
+                case "6":
+                    journal();
+                    break;
+
+                case "7":
+                    registro();
+                    break;
+
+                case "0":
+                    Console.WriteLine("Saliendo de la aplicación...");
+                    System.Environment.Exit(1);
+                    break;
+
+                default:
+                    Console.WriteLine("Introduce una opción valida");
+                    opcion();
+                    break;
+            }
+        }
+
+        public static void sumar()
+        {
+            Suma suma = new Suma();
+            string urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Sumar";
+            string linea2 = "";
+
+            Console.WriteLine("Has Escogido la suma de números, \n escriba \"salir\" para no meter más numeros");
+            Console.WriteLine("Escribe los números que quieres sumar");
+
+
+
+            // El usuario introduce datos hasta que escriba "salir", si mete valores no numéricos, no se guardan.
+            do
+            {
+                linea2 = Console.ReadLine();
+                if (!linea2.Equals("salir"))
+                {
+                    suma.valores.Add(linea2);
+                }
+            } while (!linea2.Equals("salir"));
+
+            sendJson(urlAddress, suma);
+        }
+
+        public static void restar()
+        {
+            string linea2 = "";
+            int aux = 0;
+            string urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Restar";
+            Resta resta = new Resta();
+            Console.WriteLine("Escribe los números que quieres restar");
+            // El usuario introduce dos números para restar, si mete valores no numéricos no se guardan.
+            do
+            {
+                linea2 = Console.ReadLine();
+
+                if (aux == 0)
+                {
+                    resta.minuendo = linea2;
+                }
+                else
+                {
+                    resta.sustraendo = linea2;
+                }
+
+                aux++;
+            } while (aux < 2);
+
+            sendJson(urlAddress, resta);
+        }
+
+        public static void multiplicar()
+        {
+            string linea2 = "";
+            Console.WriteLine("Escribe los números que quieres multiplicar");
+            string urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Multiplicar";
+            Multiplicacion mult = new Multiplicacion();
+
+
+            // El usuario introduce datos hasta que escriba "salir", si mete valores no numéricos, no se guardan.
+            do
+            {
+                linea2 = Console.ReadLine();
+                if (!linea2.Equals("salir"))
+                {
+                    mult.valores.Add(linea2);
+                }
+
+            } while (!linea2.Equals("salir"));
+
+            sendJson(urlAddress, mult);
+        }
+
+        public static void dividir()
+        {
+            string linea2 = "";
+            Console.WriteLine("Escribe los números que quieres dividir");
+            string urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Dividir";
+            int aux = 0;
+            Division div = new Division();
+
+            // El usuario introduce dos números para dividirlos, si mete valores no numéricos, no se guardan.
+            do
+            {
+                linea2 = Console.ReadLine();
+
+                if (aux == 0)
+                {
+                    div.dividendo = linea2;
+                }
+                else
+                {
+                    div.divisor = linea2;
+                }
+                aux++;
+            } while (aux < 2);
+
+            sendJson(urlAddress, div);
+        }
+
+        public static void raiz()
+        {
+            string linea2 = "";
+            Console.WriteLine("Has Escogido la raíz cuadrada");
+            string urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Raiz";
+            Console.WriteLine("Introduce el número para calcular su raiz");
+            Raiz raiz = new Raiz();
+            linea2 = Console.ReadLine();
+            raiz.num = linea2;
+
+            sendJson(urlAddress, raiz);
+        }
+
+        public static void journal()
+        {
+            string linea2 = "";
+            Console.Write("Escriba el ID: ");
+            Journal peticion = new Journal();
+            int valor2 = 0;
+
+            string urlAddress = "https://calculadora20190401125057.azurewebsites.net/Journal/query";
+            Console.WriteLine("Introduce un ID para ver el Journal correspondiente");
+
+            linea2 = Console.ReadLine();
+
+            if (int.TryParse(linea2, out valor2))
+            {
+                peticion.id = valor2;
+            }
+            else
+            {
+                Console.WriteLine("Has introducido un caracter que no es un número");
+            }
+
+            sendJson(urlAddress, peticion);
+        }
+
+        public static void registro()
+        {
+            Console.WriteLine("Consultando fichero de Registro...");
+
+            // Leer fichero linea a linea.
+            string line;
+            int nLinea = 0;
+            string entrada;
+            System.IO.StreamReader file =
+                new System.IO.StreamReader("log.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                System.Console.WriteLine("Número de Linea: " + nLinea + " Contenido: " + line);
+                Console.WriteLine("\n");
+                nLinea++;
+                Console.ReadKey();
+            }
+        }
 
 
         static void Main(string[] args)
         {
-            bool enviar = true;
-            String linea = "";
-            String linea2 = "";
-            Suma suma = new Suma();
-            Resta resta = new Resta();
-            Multiplicacion mult = new Multiplicacion();
-            Division div = new Division();
-            Raiz raiz = new Raiz();
-            int aux = 0;
-            int valor2 = 0;
+            string datoUsuario = "";
 
-
-            object obj = new object();
-        
-
-            string urlAddress = "";
-            double valor;
-
-            // Menú de opciones para que el usuario elija la acción
             do
             {
+                mostrarMenu();
+                opcion();
+
+                Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine("Bienvenido a la Calculadora\n");
 
 
-                Console.WriteLine("1: Sumar Numeros");
-                Console.WriteLine("2: Restar Numeros");
-                Console.WriteLine("3: Multiplicar Numeros");
-                Console.WriteLine("4: Dividir Numeros");
-                Console.WriteLine("5: Raiz Cuadrada de un número");
-                Console.WriteLine("6: Consultar Journal Con ID");
-                Console.WriteLine("7: Consultar registro");
+                Console.WriteLine("Escriba \"continuar\" para realizar más operaciones");
+                datoUsuario = Console.ReadLine();
+
+            } while (datoUsuario.ToLower().Equals("continuar"));
 
 
-                Console.WriteLine("0: Salir");
-                Console.WriteLine("¿Qué desea hacer?\n");
-
-                linea = Console.ReadLine();
-
-                // Opcion 1, suma todos los números que el usuario elija, hasta que escriba "salir"
-                if (linea.Equals("1"))
-                {
-
-                    Console.WriteLine("Has Escogido la suma de números, \n escriba \"salir\" para no meter más numeros");
-                    Console.WriteLine("Escribe los números que quieres sumar");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Sumar";
-
-
-                    // El usuario introduce datos hasta que escriba "salir", si mete valores no numéricos, no se guardan.
-                    do
-                    {
-                        linea2 = Console.ReadLine();
-                        if(!linea2.Equals("salir"))
-                        {
-                            suma.valores.Add(linea2);
-                        }
-                            
-                        
-                   
-
-                    } while (!linea2.Equals("salir"));
-
-                    Console.WriteLine("objeto" + suma);
-                    obj = suma;
-
-                }
-
-                // Opcion 2, resta dos números introducidos por el usuario
-                else if (linea.Equals("2"))
-                {
-                    Console.WriteLine("Escribe los números que quieres restar");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Restar";
-
-
-                    // El usuario introduce dos números para restar, si mete valores no numéricos no se guardan.
-                    do
-                    {
-                        linea2 = Console.ReadLine();
-
-                        if(aux == 0)
-                        {
-                            resta.minuendo = linea2;
-                        } else
-                        {
-                            resta.sustraendo = linea2;
-                        }
-                                                   
-
-                        aux++;
-                    } while (aux < 2);
-
-                    obj = resta;
-
-                }
-
-                // Opcion 3, multiplica todos los números que el usuario introduzca, hasta que escriba "salir"
-                else if (linea.Equals("3"))
-                {
-                    Console.WriteLine("Escribe los números que quieres multiplicar");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Multiplicar";
-
-
-                    // El usuario introduce datos hasta que escriba "salir", si mete valores no numéricos, no se guardan.
-                    do
-                    {
-                        linea2 = Console.ReadLine();
-                        if (!linea2.Equals("salir"))
-                        {
-                            mult.valores.Add(linea2);
-                        }
-
-
-
-
-                    } while (!linea2.Equals("salir"));
-
-
-
-                    obj = mult;
-
-
-                }
-
-                // Opcion 4, divide dos números introducidos por el usuario
-                else if (linea.Equals("4"))
-                {
-                    Console.WriteLine("Escribe los números que quieres dividir");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Dividir";
-
-                    // El usuario introduce dos números para dividirlos, si mete valores no numéricos, no se guardan.
-                    do
-                    {
-                        linea2 = Console.ReadLine();
-
-                            if (aux == 0)
-                            {
-                                div.dividendo = linea2;
-                            }
-                            else
-                            {
-                                div.divisor = linea2;
-                            }
-                        
-
-                        aux++;
-                    } while (aux < 2);
-
-
-                    obj = div;
-                }
-
-                // Opcion 5, calcula la raíz del número introducido por el usuario
-                else if (linea.Equals("5"))
-                {
-                    Console.WriteLine("Has Escogido la raíz cuadrada");
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Calculadora/Raiz";
-                    Console.WriteLine("Introduce el número para calcular su raiz");
-
-                    linea2 = Console.ReadLine();
-                 
-                    raiz.num = linea2;
-             
-                    obj = raiz;
-                }
-
-
-                // Consultar un journal por su ID.
-                else if (linea.Equals("6"))
-                {
-                    Console.Write("Escriba el ID: ");
-                    Journal peticion = new Journal();
-
-                    urlAddress = "https://calculadora20190401125057.azurewebsites.net/Journal/query";
-                    Console.WriteLine("Introduce un ID para ver el Journal correspondiente");
-
-                    linea2 = Console.ReadLine();
-
-                    if (int.TryParse(linea2, out valor2))
-                    {
-                        peticion.id = valor2;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Has introducido un caracter que no es un número");
-                    }
-
-                    obj = peticion;
-                }
-
-                // Cosultar registro.
-                else if (linea.Equals("7"))
-                {
-                    enviar = false;
-                    Console.WriteLine("Consultando fichero de Registro...");
-
-                    // Leer fichero linea a linea.
-                    string line;
-                    int nLinea = 0;
-                    string entrada;
-                    System.IO.StreamReader file =
-                        new System.IO.StreamReader("log.txt");
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        System.Console.WriteLine("Número de Linea: " + nLinea + " Contenido: " + line);
-                        Console.WriteLine("\n");
-                        nLinea++;
-                        Console.ReadKey();
-                    }
-                }
-                } while(!linea.Equals("0"));
-
-
-      
-
-            // LLamada a la función para enviar el objeto como JSON
-            if(enviar == true)
-            {
-                sendJson(urlAddress, obj);
-            }
-            
-
-            Console.ReadKey();
         }
     }
-
-    
-
     }
 
 
